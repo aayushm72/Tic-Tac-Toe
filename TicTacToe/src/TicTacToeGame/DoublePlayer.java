@@ -12,7 +12,7 @@ public class DoublePlayer implements GameType {
 			counter = 0;
 			for (int a=0; a <9 ; a++)
 			{
-				board[a] = a;
+				board[a] = 0;
 			}
 		}
 	
@@ -20,7 +20,7 @@ public class DoublePlayer implements GameType {
 			counter = 0;
 			for (int a=0; a <9 ; a++)
 			{
-				board[a] = a;
+				board[a] = 0;
 			}
 			currentPlayer = player1;
 		}
@@ -37,31 +37,31 @@ public class DoublePlayer implements GameType {
 				currentPlayer = player1;
 		}
 		
-		public boolean checkDraw(){
-			if(counter >= 9)
-				return true;
-			else
-				return false;
+		public boolean checkDraw(int[] a){
+			for(int i=0; i<9; i++)  
+	            if(a[i] == 0)  
+	                 return false;  
+	       return true; 
 		}
 		
-		public boolean checkWin(){
+		public boolean checkWin(int[] a){
 			if (counter < 5)
 				return false;
-			else if(board[0] == board[1] && board[0] == board[2])
+			else if(a[0] == a[1] && a[0] == a[2] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
 				return true;
-			else if(board[3] == board[4] && board[3] == board[5])
+			else if(a[3] == a[4] && a[3] == a[5] && (a[3] == player1.getValue() || a[3] == player2.getValue()))
 				return true;
-			else if(board[6] == board[7] && board[6] == board[8])
+			else if(a[6] == a[7] && a[6] == a[8] && (a[6] == player1.getValue() || a[6] == player2.getValue()))
 				return true;
-			else if(board[0] == board[3] && board[0] == board[6])
+			else if(a[0] == a[3] && a[0] == a[6] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
 				return true;
-			else if(board[1] == board[4] && board[1] == board[7])
+			else if(a[1] == a[4] && a[1] == a[7] && (a[1] == player1.getValue() || a[1] == player2.getValue()))
 				return true;
-			else if(board[2] == board[5] && board[2] == board[8])
+			else if(a[2] == a[5] && a[2] == a[8] && (a[2] == player1.getValue() || a[2] == player2.getValue()))
 				return true;
-			else if(board[0] == board[4] && board[0] == board[8])
+			else if(a[0] == a[4] && a[0] == a[8] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
 				return true;
-			else if(board[2] == board[4] && board[2] == board[6])
+			else if(a[2] == a[4] && a[2] == a[6] && (a[2] == player1.getValue() || a[2] == player2.getValue()))
 				return true;
 			else
 				return false;
@@ -69,5 +69,20 @@ public class DoublePlayer implements GameType {
 
 		public Player getCurrentPlayer() {
 			return currentPlayer;
+		}
+
+		@Override
+		public int[] getBoard() {
+			return board;
+		}
+
+		@Override
+		public boolean isSinglePlayer() {
+			return false;
+		}
+
+		@Override
+		public int AITurn() {
+			return 0;
 		}
 }

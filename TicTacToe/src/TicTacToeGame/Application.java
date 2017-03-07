@@ -34,6 +34,7 @@ public class Application {
  
  interface Myfun {
 	 void fun();
+	 void fun2(int a);
  }
 	/**
 	 * Create the application.
@@ -145,6 +146,21 @@ public class Application {
 				button9.setEnabled(false);
 				game.reset();
 			}
+			public void fun2(int a)
+			{
+				switch (a)
+				{
+				case 0: button1.setLabel("O"); button1.setEnabled(false);break;
+				case 1: button2.setLabel("O"); button2.setEnabled(false);break;
+				case 2: button3.setLabel("O"); button3.setEnabled(false);break;
+				case 3: button4.setLabel("O"); button4.setEnabled(false);break;
+				case 4: button5.setLabel("O"); button5.setEnabled(false);break;
+				case 5: button6.setLabel("O"); button6.setEnabled(false);break;
+				case 6: button7.setLabel("O"); button7.setEnabled(false);break;
+				case 7: button8.setLabel("O"); button8.setEnabled(false);break;
+				case 8: button9.setLabel("O"); button9.setEnabled(false);break;
+				}
+			}
 		};
 		
 		//Action Listeners
@@ -187,8 +203,16 @@ public class Application {
 				button1.setEnabled(false);
 				game.enterValue(0,game.getCurrentPlayer().getValue());
 				button1.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				int position;
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+					{
+					position = game.AITurn();
+					reset.fun2(position);
+					if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+						reset.fun();
+					}
 				else
 					game.switchPlayer();
 			}
@@ -199,8 +223,15 @@ public class Application {
 				button2.setEnabled(false);
 				game.enterValue(1,game.getCurrentPlayer().getValue());
 				button2.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -211,8 +242,15 @@ public class Application {
 				button3.setEnabled(false);
 				game.enterValue(2,game.getCurrentPlayer().getValue());
 				button3.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -223,8 +261,15 @@ public class Application {
 				button4.setEnabled(false);
 				game.enterValue(3,game.getCurrentPlayer().getValue());
 				button4.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -235,8 +280,15 @@ public class Application {
 				button5.setEnabled(false);
 				game.enterValue(4,game.getCurrentPlayer().getValue());
 				button5.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -247,8 +299,15 @@ public class Application {
 				button6.setEnabled(false);
 				game.enterValue(5,game.getCurrentPlayer().getValue());
 				button6.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+					int position = game.AITurn();
+					reset.fun2(position);
+					if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+						reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -259,8 +318,15 @@ public class Application {
 				button7.setEnabled(false);
 				game.enterValue(6,game.getCurrentPlayer().getValue());
 				button7.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -271,8 +337,15 @@ public class Application {
 				button8.setEnabled(false);
 				game.enterValue(7,game.getCurrentPlayer().getValue());
 				button8.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
@@ -283,8 +356,15 @@ public class Application {
 				button9.setEnabled(false);
 				game.enterValue(8,game.getCurrentPlayer().getValue());
 				button9.setLabel(game.getCurrentPlayer().getSymbol());
-				if (game.checkDraw() || game.checkWin())
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
 					reset.fun();
+				else if (game.isSinglePlayer())
+				{
+				int position = game.AITurn();
+				reset.fun2(position);
+				if (game.checkDraw(game.getBoard()) || game.checkWin(game.getBoard()))
+					reset.fun();
+				}
 				else
 					game.switchPlayer();
 			}
