@@ -89,10 +89,6 @@ public class SinglePlayer implements GameType {
 		if(checkDraw(g) || checkWin(g))
 			return heuristicValue(g);
 		
-//		if(Comp == player1)
-//			Comp = player2;
-//		else Comp = player2;
-		
 		if (Comp == player1)
 		{
 			int bestValue = -1;
