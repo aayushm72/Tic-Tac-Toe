@@ -89,7 +89,11 @@ public class SinglePlayer implements GameType {
 		if(checkDraw(g) || checkWin(g))
 			return heuristicValue(g);
 		
-		if (Comp == player2)
+//		if(Comp == player1)
+//			Comp = player2;
+//		else Comp = player2;
+		
+		if (Comp == player1)
 		{
 			int bestValue = -1;
 			for(int a =0; a<9; a++)
@@ -98,7 +102,7 @@ public class SinglePlayer implements GameType {
 				{
 					continue;
 				}
-				g[a] = minimax(a,g,player1);
+				g[a] = minimax(a,g,player2);
 				if (g[a] > bestValue) {bestValue = g[a];}
 			}
 			return bestValue;
@@ -112,7 +116,7 @@ public class SinglePlayer implements GameType {
 				{
 					continue;
 				}
-				g[a] = minimax(a,g,player2);
+				g[a] = minimax(a,g,player1);
 				if (g[a] < bestValue) {bestValue = g[a];}
 			}
 			return bestValue;
@@ -121,23 +125,29 @@ public class SinglePlayer implements GameType {
 	
 	public int AITurn() //return the position of the cell in which the computer placed the "O"
 	{
+		int[] h = board.clone();
 		int maxVal = -1;
 		int a;
 		for(a = 0; a < 9; a++)
 		{
-			if(board[a] == player1.getValue() || board[a] == player2.getValue())
+			if(h[a] == player1.getValue() || h[a] == player2.getValue())
 			{
 				continue;
 			}
-			board[a] = minimax(a,board,player2);  //minimax reutrn the heuristic value
-			if (board[a] > maxVal) {maxVal = board[a];}
+			h[a] = minimax(a,h,player2);  //minimax reutrn the heuristic value
+			if (h[a] > maxVal) {maxVal = h[a];}
 		}
 		for(a =0; a<9;a++)
 		{
-			if(board[a] == maxVal)
+			if(h[4] == maxVal)
+			{
+				a = 4; break;
+			}
+			if(h[a] == maxVal)
 				break;
 		}
 		board[a] = player2.getValue();
+		counter++;
 		return a;
 	}
 
