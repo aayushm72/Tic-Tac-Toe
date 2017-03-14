@@ -3,13 +3,11 @@ package TicTacToeGame;
 public class SinglePlayer implements GameType {
 
 	private int[] board = new int[9];
-	private int counter = 0;
 	private Player player1 = new Player("X",100);
 	private Player player2 = new Player("O",-100);
 	private Player currentPlayer = player1;
 	
 	public SinglePlayer(){
-		counter = 0;
 		for (int a=0; a <9 ; a++)
 		{
 			board[a] = 0;
@@ -23,7 +21,6 @@ public class SinglePlayer implements GameType {
 
 	@Override
 	public void reset() {
-		counter = 0;
 		for (int a=0; a <9 ; a++)
 		{
 			board[a] = 0;
@@ -34,7 +31,6 @@ public class SinglePlayer implements GameType {
 	@Override
 	public void enterValue(int pos, int val) {
 		board[pos] = val;
-		counter++;
 	}
 
 	@Override
@@ -48,16 +44,14 @@ public class SinglePlayer implements GameType {
 	@Override
 	public boolean checkDraw(int[] a) {
 		for(int i=0; i<9; i++)  
-            if(a[i] == 0)  
+            if(a[i] != player1.getValue() && a[i] != player2.getValue())  
                  return false;  
        return true; 
 	}
 
 	@Override
-	public boolean checkWin(int[] a) {
-		if (counter < 5)
-			return false;
-		else if(a[0] == a[1] && a[0] == a[2] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
+	public boolean checkWin(int[] a) {   //returns true if 
+		if(a[0] == a[1] && a[0] == a[2] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
 			return true;
 		else if(a[3] == a[4] && a[3] == a[5] && (a[3] == player1.getValue() || a[3] == player2.getValue()))
 			return true;
@@ -85,11 +79,11 @@ public class SinglePlayer implements GameType {
 	public int minimax(int pos,int[] b, Player Comp)
 	{
 		int[] g = b.clone();
-		g[pos] = Comp.getValue();
+		int[] h = b.clone();
 		if(checkDraw(g) || checkWin(g))
 			return heuristicValue(g);
 		
-		if (Comp == player1)
+		if (Comp == player2)
 		{
 			int bestValue = -1;
 			for(int a =0; a<9; a++)
@@ -98,8 +92,10 @@ public class SinglePlayer implements GameType {
 				{
 					continue;
 				}
-				g[a] = minimax(a,g,player2);
+				h[a] = player2.getValue();
+				g[a] = minimax(a,h,player1);
 				if (g[a] > bestValue) {bestValue = g[a];}
+				h[a] = 0;
 			}
 			return bestValue;
 		}
@@ -112,38 +108,39 @@ public class SinglePlayer implements GameType {
 				{
 					continue;
 				}
-				g[a] = minimax(a,g,player1);
+				h[a] = player1.getValue();
+				g[a] = minimax(a,h,player2);
 				if (g[a] < bestValue) {bestValue = g[a];}
+				h[a] = 0;
 			}
 			return bestValue;
 		}
 	}
 	
-	public int AITurn() //return the position of the cell in which the computer placed the "O"
+	public int AITurn()
 	{
 		int[] h = board.clone();
+		int[] b = board.clone();
 		int maxVal = -1;
 		int a;
+		
 		for(a = 0; a < 9; a++)
 		{
 			if(h[a] == player1.getValue() || h[a] == player2.getValue())
 			{
 				continue;
 			}
-			h[a] = minimax(a,h,player2);  //minimax reutrn the heuristic value
-			if (h[a] > maxVal) {maxVal = h[a];}
+			h[a] = player2.getValue();
+			b[a] = minimax(a,h,player1);
+			if (b[a] > maxVal) {maxVal = b[a];}
+			h[a] = 0;
 		}
 		for(a =0; a<9;a++)
 		{
-			if(h[4] == maxVal)
-			{
-				a = 4; break;
-			}
-			if(h[a] == maxVal)
+			if(b[a] == maxVal)
 				break;
 		}
 		board[a] = player2.getValue();
-		counter++;
 		return a;
 	}
 

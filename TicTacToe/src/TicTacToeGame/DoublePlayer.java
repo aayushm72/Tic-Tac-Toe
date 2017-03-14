@@ -3,13 +3,11 @@ package TicTacToeGame;
 public class DoublePlayer implements GameType {
 	
 		private int[] board = new int[9];
-		private int counter = 0;
 		private Player player1 = new Player("X",100);
 		private Player player2 = new Player("O",-100);
 		private Player currentPlayer = player1;
 		
 		public DoublePlayer(){
-			counter = 0;
 			for (int a=0; a <9 ; a++)
 			{
 				board[a] = 0;
@@ -17,7 +15,6 @@ public class DoublePlayer implements GameType {
 		}
 	
 		public void reset(){
-			counter = 0;
 			for (int a=0; a <9 ; a++)
 			{
 				board[a] = 0;
@@ -27,7 +24,6 @@ public class DoublePlayer implements GameType {
 		
 		public void enterValue(int pos, int val){
 			board[pos] = val;
-			counter++;
 		}
 		
 		public void switchPlayer(){
@@ -39,15 +35,14 @@ public class DoublePlayer implements GameType {
 		
 		public boolean checkDraw(int[] a){
 			for(int i=0; i<9; i++)  
-	            if(a[i] == 0)  
+	            if(a[i] != player1.getValue() && a[i] != player2.getValue())  
 	                 return false;  
 	       return true; 
 		}
 		
 		public boolean checkWin(int[] a){
-			if (counter < 5)
-				return false;
-			else if(a[0] == a[1] && a[0] == a[2] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
+
+			if(a[0] == a[1] && a[0] == a[2] && (a[0] == player1.getValue() || a[0] == player2.getValue()))
 				return true;
 			else if(a[3] == a[4] && a[3] == a[5] && (a[3] == player1.getValue() || a[3] == player2.getValue()))
 				return true;
